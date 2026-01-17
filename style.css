@@ -1,0 +1,679 @@
+/* ============================================
+   DESIGN SYSTEM - VISION OS / PREMIUM
+   ============================================ */
+
+:root {
+    /* Palette de couleurs "Aurora" */
+    --bg-deep: #050511;
+    --accent-primary: #60a5fa;
+    --accent-secondary: #c084fc;
+    --accent-tertiary: #2dd4bf;
+
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.15);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+    /* Text */
+    --text-main: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --text-placeholder: rgba(255, 255, 255, 0.3);
+
+    /* Status */
+    --success: #4ade80;
+    --error: #f87171;
+
+    /* Animation */
+    --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ============================================
+   AMBIENT BACKGROUND
+   ============================================ */
+
+.ambient-light {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.light-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float-orb 20s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, var(--accent-primary), transparent 70%);
+    top: -20%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, var(--accent-secondary), transparent 70%);
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 30vw;
+    height: 30vw;
+    background: radial-gradient(circle, var(--accent-tertiary), transparent 70%);
+    top: 40%;
+    left: 40%;
+    animation-delay: -10s;
+}
+
+@keyframes float-orb {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(5%, 5%) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-5%, -5%) scale(0.9);
+    }
+}
+
+/* ============================================
+   MAIN CONTAINER & GLASS PANEL
+   ============================================ */
+
+/* Conteneur principal responsive */
+.container {
+    width: 100%;
+    max-width: 1100px;
+    padding: clamp(15px, 4vw, 30px);
+    perspective: 1000px;
+}
+
+/* Panneau verre principal */
+.glass-panel {
+    display: flex;
+    background: var(--glass-bg);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    box-shadow: var(--glass-shadow),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    /* Hauteur auto pour contenir le contenu */
+    min-height: auto;
+    transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+}
+
+.glass-panel:hover {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Contenu du formulaire - PADDING RÉDUIT */
+.form-content {
+    flex: 1;
+    /* Padding responsive et réduit */
+    padding: clamp(30px, 6vw, 50px);
+    z-index: 2;
+    /* Assure que le contenu ne déborde pas */
+    display: flex;
+    flex-direction: column;
+    /* Espace pour la scrollbar si nécessaire */
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+/* Panneau de décoration */
+.decorative-panel {
+    flex: 0.8;
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    border-left: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* ============================================
+   TYPOGRAPHY - HEADER
+   ============================================ */
+
+/* Conteneur du header - CORRIGÉ */
+.form-header {
+    margin-bottom: clamp(25px, 5vw, 40px);
+    /* Assure qu'il ne se coupe pas */
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+/* Titre principal - Responsive et non coupé */
+.form-header h1 {
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 700;
+    margin-bottom: clamp(8px, 2vw, 12px);
+    background: linear-gradient(to right, #fff, #a5b4fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+    /* Évite le débordement */
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+/* Sous-titre */
+.form-header p {
+    color: var(--text-muted);
+    font-size: clamp(14px, 3vw, 16px);
+    margin-bottom: 0;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+
+.input-group {
+    margin-bottom: clamp(18px, 3vw, 24px);
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    margin-left: 4px;
+    transition: color 0.3s;
+}
+
+.input-wrapper {
+    position: relative;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    transition: all 0.3s var(--ease-smooth);
+}
+
+.input-wrapper:focus-within {
+    background: rgba(0, 0, 0, 0.3);
+    transform: scale(1.01);
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 16px 20px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    color: var(--text-main);
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.input-wrapper input::placeholder {
+    color: var(--text-placeholder);
+}
+
+/* Glow Effect on Focus */
+.input-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    /* Border width */
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.input-wrapper:focus-within .input-glow {
+    opacity: 1;
+}
+
+/* Validation States */
+.input-wrapper input.valid+.input-glow {
+    background: var(--success);
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.2);
+}
+
+.input-wrapper input.invalid+.input-glow {
+    background: var(--error);
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(248, 113, 113, 0.2);
+}
+
+/* Password Toggle */
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s;
+    z-index: 10;
+}
+
+.toggle-password:hover {
+    color: var(--text-main);
+}
+
+/* Password Strength */
+.password-strength {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 10px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--error), var(--accent-secondary), var(--success));
+    transition: width 0.5s var(--ease-elastic);
+}
+
+/* Feedback Message */
+.input-feedback {
+    font-size: 0.8rem;
+    margin-top: 6px;
+    margin-left: 4px;
+    min-height: 1.2em;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s;
+}
+
+.input-feedback.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.input-feedback.success {
+    color: var(--success);
+}
+
+.input-feedback.error {
+    color: var(--error);
+}
+
+/* ============================================
+   SUBMIT BUTTON - PREMIUM STYLE
+   ============================================ */
+
+.submit-btn {
+    /* Largeur totale */
+    width: 100%;
+    
+    /* Padding responsive */
+    padding: clamp(12px, 2.5vw, 16px) clamp(20px, 4vw, 28px);
+    
+    /* Dégradé premium bleu -> violet */
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    
+    /* Texte blanc */
+    color: var(--text-main);
+    
+    /* Pas de bordure */
+    border: none;
+    
+    /* Coins arrondis */
+    border-radius: 16px;
+    
+    /* Font responsive */
+    font-size: clamp(14px, 2.5vw, 16px);
+    
+    /* Très gras */
+    font-weight: 700;
+    
+    /* Curseur main */
+    cursor: pointer;
+    
+    /* Transition lisse */
+    transition: all 0.3s var(--ease-smooth);
+    
+    /* Majuscules */
+    text-transform: uppercase;
+    
+    /* Lettrage */
+    letter-spacing: 0.5px;
+    
+    /* Ombre initiale */
+    box-shadow: 0 10px 30px rgba(96, 165, 250, 0.3);
+    
+    /* Espacement en haut */
+    margin-top: clamp(20px, 4vw, 30px);
+    
+    /* Position relative pour pseudo-éléments */
+    position: relative;
+    
+    /* Cache les débordements */
+    overflow: hidden;
+    
+    /* Animation d'apparition */
+    animation: slideInUp 0.6s ease-out 0.6s backwards;
+    
+    /* Z-index */
+    z-index: 10;
+}
+
+/* Animation d'apparition du bouton */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pseudo-élément before (brillance) */
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+/* Pseudo-élément after (glow) */
+.submit-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(circle at center, rgba(96, 165, 250, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+/* Hover du bouton */
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 45px rgba(96, 165, 250, 0.4);
+}
+
+.submit-btn:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.submit-btn:hover:not(:disabled)::after {
+    opacity: 1;
+}
+
+/* Active du bouton */
+.submit-btn:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+/* Disabled du bouton */
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    background: #4a5568;
+}
+
+/* Focus du bouton (accessibilité) */
+.submit-btn:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Texte du bouton */
+.btn-text {
+    position: relative;
+    z-index: 3;
+    display: block;
+}
+
+/* Glow du bouton */
+.btn-glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 16px;
+    background: radial-gradient(circle at center, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.submit-btn:hover:not(:disabled) .btn-glow {
+    opacity: 1;
+}
+
+/* Animation d'échappement */
+.submit-btn.escaping {
+    animation: shake-button 0.5s var(--ease-elastic);
+}
+
+@keyframes shake-button {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px) rotate(-5deg);
+    }
+    75% {
+        transform: translateX(10px) rotate(5deg);
+    }
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.form-footer {
+    text-align: center;
+    margin-top: clamp(20px, 4vw, 30px);
+    color: var(--text-muted);
+    font-size: clamp(13px, 2vw, 15px);
+}
+
+.form-footer a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 2px;
+    transition: all 0.3s;
+}
+
+.form-footer a:hover {
+    border-color: var(--text-main);
+}
+
+/* ============================================
+   DECORATIVE CARD
+   ============================================ */
+
+.glass-card {
+    width: 280px;
+    height: 380px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px;
+    position: relative;
+    transform: rotate(-5deg);
+    transition: transform 0.5s var(--ease-smooth);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.glass-panel:hover .glass-card {
+    transform: rotate(0deg) scale(1.05);
+}
+
+.card-content h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #fff, #c084fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* ============================================
+   RESPONSIVE - TABLETTES ET MOBILES
+   ============================================ */
+
+@media (max-width: 900px) {
+    /* Layout vertical */
+    .glass-panel {
+        flex-direction: column;
+    }
+
+    /* Cache la décoration */
+    .decorative-panel {
+        display: none;
+    }
+
+    /* Padding adapté */
+    .form-content {
+        padding: clamp(25px, 5vw, 40px);
+    }
+
+    /* Titre adapté */
+    .form-header h1 {
+        font-size: clamp(24px, 5vw, 36px);
+    }
+
+    /* Sous-titre adapté */
+    .form-header p {
+        font-size: clamp(12px, 2.5vw, 14px);
+    }
+}
+
+/* Mobiles portrait */
+@media (max-width: 600px) {
+    /* Padding réduit */
+    .container {
+        padding: clamp(10px, 2vw, 15px);
+    }
+
+    .form-content {
+        padding: clamp(20px, 4vw, 30px);
+    }
+
+    /* Titre très compact */
+    .form-header h1 {
+        font-size: clamp(20px, 5vw, 28px);
+        margin-bottom: 6px;
+    }
+
+    .form-header p {
+        font-size: clamp(12px, 2.5vw, 13px);
+    }
+
+    /* Input compact */
+    .input-wrapper input {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    /* Bouton compact */
+    .submit-btn {
+        padding: 12px 16px;
+        font-size: 13px;
+        margin-top: 16px;
+    }
+}
+
+/* Très petits écrans */
+@media (max-width: 400px) {
+    .form-content {
+        padding: 16px 12px;
+    }
+
+    .form-header h1 {
+        font-size: 18px;
+    }
+
+    .form-header p {
+        font-size: 11px;
+    }
+
+    .input-wrapper input {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .submit-btn {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+}
